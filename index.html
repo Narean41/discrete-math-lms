@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Discrete Mathematics LMS Portal</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ================= AUTH VIEW ================= -->
+  <section id="authView" class="auth-section">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>🧮 DiscreteMath LMS</h2>
+        <p>College Level Interactive Learning Portal</p>
+      </div>
+
+      <div class="tab-box">
+        <button id="studentTabBtn" class="tab-btn active" onclick="switchLoginTab('student')">Student Login</button>
+        <button id="adminTabBtn" class="tab-btn" onclick="switchLoginTab('admin')">Staff / Admin</button>
+      </div>
+
+      <!-- Student Login Form -->
+      <form id="studentLoginForm" onsubmit="handleStudentLogin(event)">
+        <div class="form-group">
+          <label>5-Digit Register Number</label>
+          <input type="text" id="studentRegNo" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 10001" required />
+          <span class="input-hint">Must be exactly 5 digits</span>
+        </div>
+        <div class="form-group">
+          <label>Date of Birth (DOB)</label>
+          <input type="date" id="studentDob" required />
+        </div>
+        <button type="submit" class="btn-submit">Login as Student</button>
+        <div class="demo-box">
+          Default Student: Reg No: <b>10001</b> | DOB: <b>01-01-2005</b> (Narean)
+        </div>
+      </form>
+
+      <!-- Admin Login Form -->
+      <form id="adminLoginForm" class="hidden" onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label>Admin Username</label>
+          <input type="text" id="adminUser" placeholder="admin" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="adminPass" placeholder="admin123" required />
+        </div>
+        <button type="submit" class="btn-submit">Login as Admin</button>
+        <div class="demo-box">
+          Admin Credentials: <b>admin</b> / <b>admin123</b>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= STUDENT DASHBOARD ================= -->
+  <section id="studentDashboard" class="dashboard hidden">
+    <!-- Main Top Navigation -->
+    <header class="top-nav">
+      <div class="brand">Discrete<span>LMS</span></div>
+      
+      <nav class="nav-links">
+        <button id="navHomeBtn" class="nav-item-btn active" onclick="switchStudentTab('home')">🏠 Home</button>
+        <button id="navModulesBtn" class="nav-item-btn" onclick="switchStudentTab('modules')">📚 Modules</button>
+        <button id="navAboutBtn" class="nav-item-btn" onclick="switchStudentTab('about')">ℹ️️ About</button>
+      </nav>
+
+      <div class="user-profile">
+        <span class="avatar">👨‍🎓</span>
+        <span id="welcomeText" class="user-greeting">Hi Narean!</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="dashboard-body">
+      <!-- Fixed Welcome Banner & Progress (Always Visible) -->
+      <div class="welcome-banner">
+        <div>
+          <h2>Welcome back, <span id="studentDisplayName">Narean</span>! 👋</h2>
+          <p>Learn core theory, explore interactive sandboxes, and test your knowledge.</p>
+          <small id="studentMetaInfo" class="student-meta"></small>
+        </div>
+        <div class="progress-box">
+          <div class="progress-info">
+            <span>Course Progress</span>
+            <strong id="progressPercent">0%</strong>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progressBarFill" class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+          <div class="progress-sub" id="progressFraction">0 of 3 Modules Certified</div>
+        </div>
+      </div>
+
+      <!-- TAB 1: HOME OVERVIEW -->
+      <div id="studentTabHome" class="student-tab-pane">
+        <div class="overview-grid">
+          <div class="overview-card">
+            <span class="ov-icon">📖</span>
+            <h4>Structured Syllabus</h4>
+            <p>Anna University standard Discrete Mathematics modules covering Logic, Relations, and Combinatorics.</p>
+            <button class="btn-learn" style="margin-top:12px;" onclick="switchStudentTab('modules')">Go to Modules ➡️</button>
+          </div>
+          <div class="overview-card">
+            <span class="ov-icon">⚡</span>
+            <h4>Interactive Simulators</h4>
+            <p>Hands-on logic gates calculator, dynamic Set Theory solvers, and Combinatorics algorithms.</p>
+          </div>
+          <div class="overview-card">
+            <span class="ov-icon">🎯</span>
+            <h4>Continuous Assessment</h4>
+            <p>15 multiple-choice questions per unit with automated evaluation and instant progress tracking.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: MODULES (As shown in your image) -->
+      <div id="studentTabModules" class="student-tab-pane hidden">
+        <div class="section-heading">
+          <h3>Discrete Mathematics Syllabus & Modules</h3>
+          <p>Complete each module to earn certificates and advance your marks.</p>
+        </div>
+        <!-- 3 Cards Grid -->
+        <div class="courses-grid" id="coursesContainer"></div>
+      </div>
+
+      <!-- TAB 3: ABOUT -->
+      <div id="studentTabAbout" class="student-tab-pane hidden">
+        <div class="about-card">
+          <h3>About Discrete Mathematics Learning Management System</h3>
+          <p>This web-based Learning Management System is custom-engineered for undergraduate Computer Science and Information Technology students to provide rigorous conceptual foundations in Discrete Computational Structures.</p>
+          <h4 style="margin-top: 15px; color:#0f172a;">Course Objectives:</h4>
+          <ul>
+            <li>Understand mathematical proofs, formal inference rules, and compound truth functions.</li>
+            <li>Apply Set Theory identities, partial ordering relations, and Lattice algebra to computer programs.</li>
+            <li>Master combinatorial enumeration, the Pigeonhole Principle, and recursive sequence analysis.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ================= ADMIN DASHBOARD ================= -->
+  <section id="adminDashboard" class="dashboard hidden">
+    <header class="top-nav">
+      <div class="brand">Discrete<span>LMS Admin Panel</span></div>
+      <div class="user-profile">
+        <span class="avatar">🛠️</span>
+        <span class="user-greeting">Staff Administrator</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="dashboard-body">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-icon">👥</span>
+          <div>
+            <h4 id="metricStudents">0</h4>
+            <p>Enrolled Students</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">📖</span>
+          <div>
+            <h4 id="metricCourses">0</h4>
+            <p>Active Modules</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <span class="metric-icon">🎯</span>
+          <div>
+            <h4 id="metricCompletions">0</h4>
+            <p>Total Modules Passed</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-tab-bar">
+        <button id="adminTabUsersBtn" class="admin-nav-btn active" onclick="switchAdminSection('users')">Manage Students (Reg No & DOB)</button>
+        <button id="adminTabCoursesBtn" class="admin-nav-btn" onclick="switchAdminSection('courses')">Manage Courses & Modules</button>
+      </div>
+
+      <!-- SECTION 1: MANAGE STUDENTS -->
+      <div id="adminSectionUsers" class="admin-section-content">
+        <div class="admin-grid-layout">
+          <div class="admin-card">
+            <h3>➕ Register New Student</h3>
+            <form id="addStudentForm" onsubmit="handleAddStudent(event)">
+              <div class="form-group">
+                <label>Student Full Name</label>
+                <input type="text" id="newStudentName" placeholder="e.g. Narean S" required />
+              </div>
+              <div class="form-group">
+                <label>5-Digit Register Number</label>
+                <input type="text" id="newStudentReg" pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 10002" required />
+              </div>
+              <div class="form-group">
+                <label>Date of Birth (DOB)</label>
+                <input type="date" id="newStudentDob" required />
+              </div>
+              <button type="submit" class="btn-submit">Add Student</button>
+            </form>
+          </div>
+
+          <div class="admin-card table-card">
+            <h3>📋 Enrolled Students Database</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Reg No</th>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Completed</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="studentTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: MANAGE COURSES -->
+      <div id="adminSectionCourses" class="admin-section-content hidden">
+        <div class="admin-grid-layout">
+          <div class="admin-card">
+            <h3>➕ Create New Course Topic</h3>
+            <form id="addCourseForm" onsubmit="handleAddCourse(event)">
+              <div class="form-group">
+                <label>Course Title</label>
+                <input type="text" id="newCourseTitle" placeholder="e.g. Graph Theory & Trees" required />
+              </div>
+              <div class="form-group">
+                <label>Module Code / Tag</label>
+                <input type="text" id="newCourseCategory" placeholder="e.g. Unit 4 - Graphs" required />
+              </div>
+              <div class="form-group">
+                <label>Short Description</label>
+                <input type="text" id="newCourseDesc" placeholder="Brief 1-line overview" required />
+              </div>
+              <div class="form-group">
+                <label>Theory & Explanation (HTML permitted)</label>
+                <textarea id="newCourseContent" rows="5" placeholder="Enter formulas, laws, theorems..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Quiz Question</label>
+                <input type="text" id="newQuizQuestion" placeholder="Question text" required />
+              </div>
+              <div class="form-group">
+                <label>Quiz Options (4 comma-separated values)</label>
+                <input type="text" id="newQuizOptions" placeholder="Opt1, Opt2, Opt3, Opt4" required />
+              </div>
+              <div class="form-group">
+                <label>Correct Option Index (0 to 3)</label>
+                <input type="number" id="newQuizAnswer" min="0" max="3" value="0" required />
+              </div>
+              <button type="submit" class="btn-submit">Publish Course</button>
+            </form>
+          </div>
+
+          <div class="admin-card table-card">
+            <h3>📚 Active Course Modules</h3>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Module</th>
+                    <th>Title</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="coursesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ================= DETAILED COURSE MODAL ================= -->
+  <div id="courseModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      
+      <span id="modalCategory" class="modal-badge">Module</span>
+      <h2 id="modalTitle">Course Title</h2>
+
+      <div class="modal-tabs">
+        <button id="modalTabTheory" class="modal-tab-btn active" onclick="switchModalTab('theory')">📖 Detailed Notes & Theory</button>
+        <button id="modalTabLab" class="modal-tab-btn" onclick="switchModalTab('lab')">⚡ Live Simulator / Lab</button>
+        <button id="modalTabQuiz" class="modal-tab-btn" onclick="switchModalTab('quiz')">✍️ Topic Assessment</button>
+      </div>
+
+      <div id="theoryTab" class="tab-pane">
+        <div id="modalBodyText" class="lesson-content-expanded"></div>
+      </div>
+
+      <div id="labTab" class="tab-pane hidden">
+        <div id="interactiveLabContainer"></div>
+      </div>
+
+      <div id="quizTab" class="tab-pane hidden">
+        <div class="modal-quiz-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
