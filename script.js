@@ -787,7 +787,7 @@ function handleRetakeTest() {
 // Bootstrap
 window.onload = renderApp;
 
-// ================= FLOATING AI ASSISTANT ENGINE =================
+// ================= FLOATING AI ASSISTANT ENGINE (FULL ENGLISH) =================
 function toggleAIChat() {
   const chatBox = document.getElementById("aiChatBox");
   chatBox.classList.toggle("hidden");
@@ -811,11 +811,11 @@ function handleAIChatSubmit(e) {
   appendAIMessage(userText, "user");
   inputElem.value = "";
 
-  // Bot typing simulation & response
+  // Bot typing simulation & response in English
   setTimeout(() => {
     const botResponse = generateAIResponse(userText.toLowerCase());
     appendAIMessage(botResponse, "bot");
-  }, 400);
+  }, 350);
 }
 
 function appendAIMessage(text, sender) {
@@ -827,62 +827,115 @@ function appendAIMessage(text, sender) {
   msgContainer.scrollTop = msgContainer.scrollHeight;
 }
 
-// Smart NLP-based response system for math & website guide
+// Comprehensive Academic English Response System
 function generateAIResponse(query) {
-  // 1. Website Navigation & Features
-  if (query.includes("website") || query.includes("guide") || query.includes("features") || query.includes("help") || query.includes("enna pannanum")) {
-    return "Namma <b>Discrete LMS Website</b>-la 3 main sections irukku:<br>1. <b>Home Tab:</b> Overview & syllabus details.<br>2. <b>Modules Tab:</b> Unit 1 (Logic), Unit 2 (Sets), Unit 3 (Combinatorics). Ovvoru module-kullayum Theory, Live Simulator Lab, and 15-MCQ Assessment irukku.<br>3. <b>About Tab:</b> Course objectives and details.";
+  // 1. LMS Portal & System Navigation
+  if (query.includes("overview") || query.includes("website") || query.includes("portal") || query.includes("features") || query.includes("guide")) {
+    return "Welcome to the <b>Discrete Mathematics Learning Management System</b>!<br><br>" +
+           "<b>Core Architecture & Navigation:</b><br>" +
+           "• <b>Home Tab:</b> Course curriculum structure, real-time metrics, and general syllabus roadmaps.<br>" +
+           "• <b>Modules Tab:</b> Access Unit 1 (Logic & Calculus), Unit 2 (Set Theory & Posets), and Unit 3 (Combinatorics). Each module features thorough theory documentation, real-time computational simulators, and 15-question assessments.<br>" +
+           "• <b>About Tab:</b> Detailed course outcomes, pedagogical objectives, and syllabus mapping.";
   }
   
-  if (query.includes("pass") || query.includes("mark") || query.includes("percentage") || query.includes("criteria")) {
-    return "Assessment pass panna <b>60% minimum score</b> venum (adhavaadhu 15 MCQs-la minimum <b>9 questions correct-aa</b> irukkanum). Pass aana udaney dashboard-la <b>'✅ Exam Passed'</b> (Green colour) aagi progress bar increase aagum!";
+  if (query.includes("pass") || query.includes("score") || query.includes("criteria") || query.includes("grade") || query.includes("percentage")) {
+    return "<b>Assessment Certification Standards:</b><br><br>" +
+           "• Each unit examination consists of <b>15 multiple-choice questions</b>.<br>" +
+           "• The minimum passing benchmark is strictly <b>60% (at least 9 out of 15 correct answers)</b>.<br>" +
+           "• Upon passing, the module status transitions to <b>'✅ Exam Passed'</b>, and your overall course progress bar dynamically recalculates.";
   }
 
-  if (query.includes("retake") || query.includes("reset") || query.includes("thirumba")) {
-    return "Oru module assessment mudichittu <b>'Retake Assessment 🔄'</b> button click pannina, antha module thirumba <b>'⏳ Ready for Study & Exam'</b> (orange colour)-kum progress 0%-kum reset aagidum. Neenga thirumba fresh-aa test ezhudhalaam.";
+  if (query.includes("retake") || query.includes("reset") || query.includes("reattempt")) {
+    return "<b>Assessment Reset Policy:</b><br><br>" +
+           "Clicking the <b>'Retake Assessment 🔄'</b> button will clear your saved completion state for that module, reset your course progress index, and permit an immediate re-attempt of the examination.";
   }
 
-  if (query.includes("lab") || query.includes("simulator") || query.includes("tool")) {
-    return "Namma website-la ovvoru module-kullayum <b>'Live Simulator / Lab'</b> tab irukku:<br>• <b>Unit 1:</b> Truth Table Calculator (P & Q connectives).<br>• <b>Unit 2:</b> Set Operations Solver (Union, Intersection, Power Set).<br>• <b>Unit 3:</b> Permutations (nPr) & Combinations (nCr) Solver.";
+  if (query.includes("simulator") || query.includes("lab") || query.includes("tool") || query.includes("calculator")) {
+    return "<b>Interactive Computational Laboratories:</b><br><br>" +
+           "• <b>Unit 1 Lab:</b> Interactive truth table evaluator supporting Conjunction (∧), Disjunction (∨), Exclusive OR (⊕), Implication (→), and Negation (¬).<br>" +
+           "• <b>Unit 2 Lab:</b> Dynamic set theory engine executing Union, Intersection, Relative Complement, and Power Set cardinality $|P(A)| = 2^n$.<br>" +
+           "• <b>Unit 3 Lab:</b> High-precision combinatorics calculator for Linear Permutations $P(n, r)$ and Combinations $C(n, r)$.";
   }
 
-  // 2. Discrete Mathematics Doubts
+  // 2. Unit 1: Formal Logic & Propositional Calculus
   if (query.includes("de morgan") || query.includes("demorgan")) {
-    return "<b>De Morgan's Laws:</b><br>1. ¬(P ∧ Q) ≡ ¬P ∨ ¬Q<br>2. ¬(P ∨ Q) ≡ ¬P ∧ ¬Q<br><i>Artham:</i> Conjunction-oda negation disjunction-oda individual negations-ku samam.";
+    return "<b>De Morgan's Laws of Logical Equivalence:</b><br><br>" +
+           "1. $\\neg (P \\land Q) \\equiv \\neg P \\lor \\neg Q$<br>" +
+           "2. $\\neg (P \\lor Q) \\equiv \\neg P \\land \\neg Q$<br><br>" +
+           "<i>Significance:</i> The negation of a conjunction is logically equivalent to the disjunction of the individual negations, and vice-versa.";
   }
 
-  if (query.includes("modus ponens") || query.includes("ponens")) {
-    return "<b>Modus Ponens (Rule of Detachment):</b><br>Premises: <code>P</code> and <code>P → Q</code><br>Conclusion: <code>Q</code><br>Udaharanam: 'Mazhai peydha tharai eeram aagum (P → Q)'. Mazhai peydhadhu (P). Enave, tharai eeram aagiyadhu (Q).";
+  if (query.includes("modus ponens") || query.includes("modus tollens") || query.includes("inference") || query.includes("syllogism")) {
+    return "<b>Fundamental Rules of Logical Inference:</b><br><br>" +
+           "• <b>Modus Ponens (Affirming the Antecedent):</b><br>" +
+           "  Premises: $P$ and $P \\to Q$ $\\implies$ Conclusion: $Q$<br><br>" +
+           "• <b>Modus Tollens (Denying the Consequent):</b><br>" +
+           "  Premises: $\\neg Q$ and $P \\to Q$ $\\implies$ Conclusion: $\\neg P$<br><br>" +
+           "• <b>Disjunctive Syllogism:</b><br>" +
+           "  Premises: $P \\lor Q$ and $\\neg P$ $\\implies$ Conclusion: $Q$";
   }
 
-  if (query.includes("modus tollens") || query.includes("tollens")) {
-    return "<b>Modus Tollens:</b><br>Premises: <code>¬Q</code> and <code>P → Q</code><br>Conclusion: <code>¬P</code>";
+  if (query.includes("tautology") || query.includes("contradiction") || query.includes("contingency")) {
+    return "<b>Propositional Truth Classifications:</b><br><br>" +
+           "• <b>Tautology:</b> A compound proposition that evaluates to True under every possible truth assignment (e.g., $P \\lor \\neg P$).<br>" +
+           "• <b>Contradiction:</b> A compound proposition that evaluates to False across all interpretations (e.g., $P \\land \\neg P$).<br>" +
+           "• <b>Contingency:</b> A proposition that is neither a tautology nor a contradiction.";
   }
 
-  if (query.includes("tautology") || query.includes("contradiction")) {
-    return "• <b>Tautology:</b> Ella truth values-um eppovum <b>True</b>-nu irundha adhu Tautology (e.g., P ∨ ¬P).<br>• <b>Contradiction:</b> Ella values-um eppovum <b>False</b>-nu irundha adhu Contradiction (e.g., P ∧ ¬P).";
+  if (query.includes("normal form") || query.includes("pdnf") || query.includes("pcnf")) {
+    return "<b>Canonical Normal Forms:</b><br><br>" +
+           "• <b>PDNF (Principal Disjunctive Normal Form):</b> A disjunction of distinct minterms (sum-of-products).<br>" +
+           "• <b>PCNF (Principal Conjunctive Normal Form):</b> A conjunction of distinct maxterms (product-of-sums).";
   }
 
+  // 3. Unit 2: Set Theory, Posets & Lattice Theory
+  if (query.includes("poset") || query.includes("partial order") || query.includes("hasse")) {
+    return "<b>Partially Ordered Sets (Posets):</b><br><br>" +
+           "A binary relation $R$ on set $A$ is a <b>Partial Order</b> if and only if it satisfies three strict properties:<br>" +
+           "1. <b>Reflexivity:</b> $\\forall x \\in A, (x, x) \\in R$<br>" +
+           "2. <b>Antisymmetry:</b> $[(x, y) \\in R \\land (y, x) \\in R] \\implies x = y$<br>" +
+           "3. <b>Transitivity:</b> $[(x, y) \\in R \\land (y, z) \\in R] \\implies (x, z) \\in R$<br><br>" +
+           "<i>Hasse Diagrams:</i> Compact visual representations where reflexive loops and transitive shortcuts are omitted.";
+  }
+
+  if (query.includes("lattice") || query.includes("lub") || query.includes("glb")) {
+    return "<b>Algebraic Lattice Theory:</b><br><br>" +
+           "A Poset $(L, \\le)$ is classified as a <b>Lattice</b> if every two-element subset $\\{a, b\\} \\subseteq L$ has:<br>" +
+           "• A unique <b>Least Upper Bound (LUB)</b>, termed the <i>Join</i> ($a \\lor b$).<br>" +
+           "• A unique <b>Greatest Lower Bound (GLB)</b>, termed the <i>Meet</i> ($a \\land b$).";
+  }
+
+  if (query.includes("power set") || query.includes("cardinality") || query.includes("cartesian")) {
+    return "<b>Set Theory Operations:</b><br><br>" +
+           "• <b>Power Set $|P(S)|$:</b> The collection of all possible subsets. For a finite set of $n$ elements, $|P(S)| = 2^n$.<br>" +
+           "• <b>Cartesian Product $|A \\times B|$:</b> The set of ordered pairs $(a, b)$, where $|A \\times B| = |A| \\times |B|$.<br>" +
+           "• <b>Symmetric Difference:</b> $A \\oplus B = (A \\setminus B) \\cup (B \\setminus A)$.";
+  }
+
+  // 4. Unit 3: Combinatorics & Recurrence Relations
   if (query.includes("pigeonhole") || query.includes("php")) {
-    return "<b>Pigeonhole Principle:</b><br>If <i>k + 1</i> items-ah <i>k</i> boxes-la potta, kandippa yedhavadhu oru box-la 2 or more items irukkum.<br><b>Formula:</b> <code>⌈ N / k ⌉</code>.";
+    return "<b>The Pigeonhole Principle (Dirichlet's Drawer Principle):</b><br><br>" +
+           "If $k + 1$ or more objects are placed into $k$ boxes, at least one box must contain two or more objects.<br><br>" +
+           "<b>Generalized Form:</b> If $N$ items are distributed into $k$ bins, at least one bin contains at least $\\lceil N / k \\rceil$ items.";
   }
 
-  if (query.includes("poset") || query.includes("partial order")) {
-    return "<b>Poset (Partial Order Set):</b><br>Oru relation <b>Reflexive, Antisymmetric, and Transitive</b> aagi irundha adhu Poset.";
+  if (query.includes("permutation") || query.includes("combination") || query.includes("counting")) {
+    return "<b>Fundamental Enumeration Principles:</b><br><br>" +
+           "• <b>Permutation (Arrangement where order matters):</b><br>" +
+           "  $$P(n, r) = \\frac{n!}{(n - r)!}$$<br>" +
+           "• <b>Circular Permutation:</b> $P_{circ} = (n - 1)!$<br>" +
+           "• <b>Combination (Selection where order is disregarded):</b><br>" +
+           "  $$C(n, r) = \\frac{n!}{r!(n - r)!}$$<br>" +
+           "• <b>Combinations with Repetition:</b> $C(n + r - 1, r)$";
   }
 
-  if (query.includes("lattice")) {
-    return "<b>Lattice:</b><br>Oru Poset-la irukura ovvoru pair-kum unique <b>LUB (Join ∨)</b> and <b>GLB (Meet ∧)</b> irundha adhu Lattice aagum.";
+  if (query.includes("recurrence") || query.includes("fibonacci")) {
+    return "<b>Linear Recurrence Relations:</b><br><br>" +
+           "A sequence defined recursively (such as Fibonacci $F_n = F_{n-1} + F_{n-2}$) is solved by forming its characteristic polynomial:<br>" +
+           "$$r^2 - r - 1 = 0$$<br>" +
+           "Finding roots $r_1, r_2$ yields the closed-form analytical solution.";
   }
 
-  if (query.includes("permutation") || query.includes("combination") || query.includes("npr") || query.includes("ncr")) {
-    return "• <b>Permutation (Order matters):</b> <code>P(n, r) = n! / (n - r)!</code><br>• <b>Combination (Order doesn't matter):</b> <code>C(n, r) = n! / [r! (n - r)!]</code>";
-  }
-
-  if (query.includes("power set") || query.includes("subset")) {
-    return "<b>Power Set P(S):</b><br>Oru set-oda ella subsets-um serndhadhu. If set size is <code>n</code>, total subsets in Power Set = <code>2ⁿ</code>.";
-  }
-
-  // Fallback default helpful answer
-  return "Kandippa! Naan ungalukku Discrete Mathematics (Logic, Set Theory, Combinatorics) mattrum namma website LMS features (Modules, Labs, Assessments) pathina doubts-ku help panna ready-aa irukken. Konjam theliva oru specific topic or question kelunga!";
+  // Fallback Academic Response
+  return "I am your <b>Discrete Mathematics Academic AI Assistant</b>. I can assist you with theoretical formulations (Propositional Calculus, Set Theory, Posets, Lattices, Combinatorics) or provide guidance on using this LMS portal. Please specify your question or query.";
 }
