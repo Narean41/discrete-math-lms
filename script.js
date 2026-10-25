@@ -786,3 +786,103 @@ function handleRetakeTest() {
 
 // Bootstrap
 window.onload = renderApp;
+
+// ================= FLOATING AI ASSISTANT ENGINE =================
+function toggleAIChat() {
+  const chatBox = document.getElementById("aiChatBox");
+  chatBox.classList.toggle("hidden");
+  if (!chatBox.classList.contains("hidden")) {
+    document.getElementById("aiUserInput").focus();
+  }
+}
+
+function sendQuickPrompt(promptText) {
+  document.getElementById("aiUserInput").value = promptText;
+  handleAIChatSubmit(new Event('submit'));
+}
+
+function handleAIChatSubmit(e) {
+  e.preventDefault();
+  const inputElem = document.getElementById("aiUserInput");
+  const userText = inputElem.value.trim();
+  if (!userText) return;
+
+  // Append user message
+  appendAIMessage(userText, "user");
+  inputElem.value = "";
+
+  // Bot typing simulation & response
+  setTimeout(() => {
+    const botResponse = generateAIResponse(userText.toLowerCase());
+    appendAIMessage(botResponse, "bot");
+  }, 400);
+}
+
+function appendAIMessage(text, sender) {
+  const msgContainer = document.getElementById("aiChatMessages");
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `ai-msg ${sender}`;
+  msgDiv.innerHTML = text.replace(/\n/g, "<br>");
+  msgContainer.appendChild(msgDiv);
+  msgContainer.scrollTop = msgContainer.scrollHeight;
+}
+
+// Smart NLP-based response system for math & website guide
+function generateAIResponse(query) {
+  // 1. Website Navigation & Features
+  if (query.includes("website") || query.includes("guide") || query.includes("features") || query.includes("help") || query.includes("enna pannanum")) {
+    return "Namma <b>Discrete LMS Website</b>-la 3 main sections irukku:<br>1. <b>Home Tab:</b> Overview & syllabus details.<br>2. <b>Modules Tab:</b> Unit 1 (Logic), Unit 2 (Sets), Unit 3 (Combinatorics). Ovvoru module-kullayum Theory, Live Simulator Lab, and 15-MCQ Assessment irukku.<br>3. <b>About Tab:</b> Course objectives and details.";
+  }
+  
+  if (query.includes("pass") || query.includes("mark") || query.includes("percentage") || query.includes("criteria")) {
+    return "Assessment pass panna <b>60% minimum score</b> venum (adhavaadhu 15 MCQs-la minimum <b>9 questions correct-aa</b> irukkanum). Pass aana udaney dashboard-la <b>'✅ Exam Passed'</b> (Green colour) aagi progress bar increase aagum!";
+  }
+
+  if (query.includes("retake") || query.includes("reset") || query.includes("thirumba")) {
+    return "Oru module assessment mudichittu <b>'Retake Assessment 🔄'</b> button click pannina, antha module thirumba <b>'⏳ Ready for Study & Exam'</b> (orange colour)-kum progress 0%-kum reset aagidum. Neenga thirumba fresh-aa test ezhudhalaam.";
+  }
+
+  if (query.includes("lab") || query.includes("simulator") || query.includes("tool")) {
+    return "Namma website-la ovvoru module-kullayum <b>'Live Simulator / Lab'</b> tab irukku:<br>• <b>Unit 1:</b> Truth Table Calculator (P & Q connectives).<br>• <b>Unit 2:</b> Set Operations Solver (Union, Intersection, Power Set).<br>• <b>Unit 3:</b> Permutations (nPr) & Combinations (nCr) Solver.";
+  }
+
+  // 2. Discrete Mathematics Doubts
+  if (query.includes("de morgan") || query.includes("demorgan")) {
+    return "<b>De Morgan's Laws:</b><br>1. ¬(P ∧ Q) ≡ ¬P ∨ ¬Q<br>2. ¬(P ∨ Q) ≡ ¬P ∧ ¬Q<br><i>Artham:</i> Conjunction-oda negation disjunction-oda individual negations-ku samam.";
+  }
+
+  if (query.includes("modus ponens") || query.includes("ponens")) {
+    return "<b>Modus Ponens (Rule of Detachment):</b><br>Premises: <code>P</code> and <code>P → Q</code><br>Conclusion: <code>Q</code><br>Udaharanam: 'Mazhai peydha tharai eeram aagum (P → Q)'. Mazhai peydhadhu (P). Enave, tharai eeram aagiyadhu (Q).";
+  }
+
+  if (query.includes("modus tollens") || query.includes("tollens")) {
+    return "<b>Modus Tollens:</b><br>Premises: <code>¬Q</code> and <code>P → Q</code><br>Conclusion: <code>¬P</code>";
+  }
+
+  if (query.includes("tautology") || query.includes("contradiction")) {
+    return "• <b>Tautology:</b> Ella truth values-um eppovum <b>True</b>-nu irundha adhu Tautology (e.g., P ∨ ¬P).<br>• <b>Contradiction:</b> Ella values-um eppovum <b>False</b>-nu irundha adhu Contradiction (e.g., P ∧ ¬P).";
+  }
+
+  if (query.includes("pigeonhole") || query.includes("php")) {
+    return "<b>Pigeonhole Principle:</b><br>If <i>k + 1</i> items-ah <i>k</i> boxes-la potta, kandippa yedhavadhu oru box-la 2 or more items irukkum.<br><b>Formula:</b> <code>⌈ N / k ⌉</code>.";
+  }
+
+  if (query.includes("poset") || query.includes("partial order")) {
+    return "<b>Poset (Partial Order Set):</b><br>Oru relation <b>Reflexive, Antisymmetric, and Transitive</b> aagi irundha adhu Poset.";
+  }
+
+  if (query.includes("lattice")) {
+    return "<b>Lattice:</b><br>Oru Poset-la irukura ovvoru pair-kum unique <b>LUB (Join ∨)</b> and <b>GLB (Meet ∧)</b> irundha adhu Lattice aagum.";
+  }
+
+  if (query.includes("permutation") || query.includes("combination") || query.includes("npr") || query.includes("ncr")) {
+    return "• <b>Permutation (Order matters):</b> <code>P(n, r) = n! / (n - r)!</code><br>• <b>Combination (Order doesn't matter):</b> <code>C(n, r) = n! / [r! (n - r)!]</code>";
+  }
+
+  if (query.includes("power set") || query.includes("subset")) {
+    return "<b>Power Set P(S):</b><br>Oru set-oda ella subsets-um serndhadhu. If set size is <code>n</code>, total subsets in Power Set = <code>2ⁿ</code>.";
+  }
+
+  // Fallback default helpful answer
+  return "Kandippa! Naan ungalukku Discrete Mathematics (Logic, Set Theory, Combinatorics) mattrum namma website LMS features (Modules, Labs, Assessments) pathina doubts-ku help panna ready-aa irukken. Konjam theliva oru specific topic or question kelunga!";
+}
