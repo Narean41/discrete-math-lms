@@ -850,90 +850,67 @@ function generateAIResponse(query) {
            "Clicking the <b>'Retake Assessment 🔄'</b> button will clear your saved completion state for that module, reset your course progress index, and permit an immediate re-attempt of the examination.";
   }
 
-  if (query.includes("simulator") || query.includes("lab") || query.includes("tool") || query.includes("calculator")) {
+  if (query.includes("simulator") || query.includes("lab") || query.includes("tool") || query.includes("calculator") || query.includes("truth table")) {
     return "<b>Interactive Computational Laboratories:</b><br><br>" +
-           "• <b>Unit 1 Lab:</b> Interactive truth table evaluator supporting Conjunction (∧), Disjunction (∨), Exclusive OR (⊕), Implication (→), and Negation (¬).<br>" +
-           "• <b>Unit 2 Lab:</b> Dynamic set theory engine executing Union, Intersection, Relative Complement, and Power Set cardinality $|P(A)| = 2^n$.<br>" +
-           "• <b>Unit 3 Lab:</b> High-precision combinatorics calculator for Linear Permutations $P(n, r)$ and Combinations $C(n, r)$.";
+           "• <b>Unit 1 Lab (Truth Table):</b> Select values for Propositions P and Q (True/False) using dropdowns to see instantaneous truth evaluations across Conjunction (∧), Disjunction (∨), XOR (⊕), and Implication (→).<br>" +
+           "• <b>Unit 2 Lab:</b> Dynamic set theory engine executing Union, Intersection, Relative Complement, and Power Set cardinality |P(A)| = 2^n.<br>" +
+           "• <b>Unit 3 Lab:</b> High-precision combinatorics calculator for Linear Permutations P(n, r) and Combinations C(n, r).";
   }
 
   // 2. Unit 1: Formal Logic & Propositional Calculus
   if (query.includes("de morgan") || query.includes("demorgan")) {
     return "<b>De Morgan's Laws of Logical Equivalence:</b><br><br>" +
-           "1. $\\neg (P \\land Q) \\equiv \\neg P \\lor \\neg Q$<br>" +
-           "2. $\\neg (P \\lor Q) \\equiv \\neg P \\land \\neg Q$<br><br>" +
+           "1. ¬(P ∧ Q) ≡ ¬P ∨ ¬Q<br>" +
+           "2. ¬(P ∨ Q) ≡ ¬P ∧ ¬Q<br><br>" +
            "<i>Significance:</i> The negation of a conjunction is logically equivalent to the disjunction of the individual negations, and vice-versa.";
   }
 
   if (query.includes("modus ponens") || query.includes("modus tollens") || query.includes("inference") || query.includes("syllogism")) {
     return "<b>Fundamental Rules of Logical Inference:</b><br><br>" +
            "• <b>Modus Ponens (Affirming the Antecedent):</b><br>" +
-           "  Premises: $P$ and $P \\to Q$ $\\implies$ Conclusion: $Q$<br><br>" +
+           "  Premises: P and P → Q ⟹ Conclusion: Q<br><br>" +
            "• <b>Modus Tollens (Denying the Consequent):</b><br>" +
-           "  Premises: $\\neg Q$ and $P \\to Q$ $\\implies$ Conclusion: $\\neg P$<br><br>" +
+           "  Premises: ¬Q and P → Q ⟹ Conclusion: ¬P<br><br>" +
            "• <b>Disjunctive Syllogism:</b><br>" +
-           "  Premises: $P \\lor Q$ and $\\neg P$ $\\implies$ Conclusion: $Q$";
+           "  Premises: P ∨ Q and ¬P ⟹ Conclusion: Q";
   }
 
   if (query.includes("tautology") || query.includes("contradiction") || query.includes("contingency")) {
     return "<b>Propositional Truth Classifications:</b><br><br>" +
-           "• <b>Tautology:</b> A compound proposition that evaluates to True under every possible truth assignment (e.g., $P \\lor \\neg P$).<br>" +
-           "• <b>Contradiction:</b> A compound proposition that evaluates to False across all interpretations (e.g., $P \\land \\neg P$).<br>" +
+           "• <b>Tautology:</b> A compound proposition that evaluates to True under every possible truth assignment (e.g., P ∨ ¬P).<br>" +
+           "• <b>Contradiction:</b> A compound proposition that evaluates to False across all interpretations (e.g., P ∧ ¬P).<br>" +
            "• <b>Contingency:</b> A proposition that is neither a tautology nor a contradiction.";
-  }
-
-  if (query.includes("normal form") || query.includes("pdnf") || query.includes("pcnf")) {
-    return "<b>Canonical Normal Forms:</b><br><br>" +
-           "• <b>PDNF (Principal Disjunctive Normal Form):</b> A disjunction of distinct minterms (sum-of-products).<br>" +
-           "• <b>PCNF (Principal Conjunctive Normal Form):</b> A conjunction of distinct maxterms (product-of-sums).";
   }
 
   // 3. Unit 2: Set Theory, Posets & Lattice Theory
   if (query.includes("poset") || query.includes("partial order") || query.includes("hasse")) {
     return "<b>Partially Ordered Sets (Posets):</b><br><br>" +
-           "A binary relation $R$ on set $A$ is a <b>Partial Order</b> if and only if it satisfies three strict properties:<br>" +
-           "1. <b>Reflexivity:</b> $\\forall x \\in A, (x, x) \\in R$<br>" +
-           "2. <b>Antisymmetry:</b> $[(x, y) \\in R \\land (y, x) \\in R] \\implies x = y$<br>" +
-           "3. <b>Transitivity:</b> $[(x, y) \\in R \\land (y, z) \\in R] \\implies (x, z) \\in R$<br><br>" +
-           "<i>Hasse Diagrams:</i> Compact visual representations where reflexive loops and transitive shortcuts are omitted.";
+           "A binary relation R on set A is a <b>Partial Order</b> if and only if it satisfies three strict properties:<br>" +
+           "1. <b>Reflexivity:</b> ∀x ∈ A, (x, x) ∈ R<br>" +
+           "2. <b>Antisymmetry:</b> [(x, y) ∈ R ∧ (y, x) ∈ R] ⟹ x = y<br>" +
+           "3. <b>Transitivity:</b> [(x, y) ∈ R ∧ (y, z) ∈ R] ⟹ (x, z) ∈ R<br><br>" +
+           "<i>Hasse Diagrams:</i> Visual representations where reflexive loops and transitive edges are eliminated.";
   }
 
   if (query.includes("lattice") || query.includes("lub") || query.includes("glb")) {
     return "<b>Algebraic Lattice Theory:</b><br><br>" +
-           "A Poset $(L, \\le)$ is classified as a <b>Lattice</b> if every two-element subset $\\{a, b\\} \\subseteq L$ has:<br>" +
-           "• A unique <b>Least Upper Bound (LUB)</b>, termed the <i>Join</i> ($a \\lor b$).<br>" +
-           "• A unique <b>Greatest Lower Bound (GLB)</b>, termed the <i>Meet</i> ($a \\land b$).";
-  }
-
-  if (query.includes("power set") || query.includes("cardinality") || query.includes("cartesian")) {
-    return "<b>Set Theory Operations:</b><br><br>" +
-           "• <b>Power Set $|P(S)|$:</b> The collection of all possible subsets. For a finite set of $n$ elements, $|P(S)| = 2^n$.<br>" +
-           "• <b>Cartesian Product $|A \\times B|$:</b> The set of ordered pairs $(a, b)$, where $|A \\times B| = |A| \\times |B|$.<br>" +
-           "• <b>Symmetric Difference:</b> $A \\oplus B = (A \\setminus B) \\cup (B \\setminus A)$.";
+           "A Poset (L, ≤) is classified as a <b>Lattice</b> if every two-element subset {a, b} ⊆ L has:<br>" +
+           "• A unique <b>Least Upper Bound (LUB)</b>, termed the <i>Join</i> (a ∨ b).<br>" +
+           "• A unique <b>Greatest Lower Bound (GLB)</b>, termed the <i>Meet</i> (a ∧ b).";
   }
 
   // 4. Unit 3: Combinatorics & Recurrence Relations
   if (query.includes("pigeonhole") || query.includes("php")) {
-    return "<b>The Pigeonhole Principle (Dirichlet's Drawer Principle):</b><br><br>" +
-           "If $k + 1$ or more objects are placed into $k$ boxes, at least one box must contain two or more objects.<br><br>" +
-           "<b>Generalized Form:</b> If $N$ items are distributed into $k$ bins, at least one bin contains at least $\\lceil N / k \\rceil$ items.";
+    return "<b>The Pigeonhole Principle (PHP):</b><br><br>" +
+           "If k + 1 or more objects are placed into k boxes, at least one box must contain two or more objects.<br><br>" +
+           "<b>Generalized Formula:</b> If N items are distributed into k bins, at least one bin contains at least ⌈N / k⌉ items.";
   }
 
   if (query.includes("permutation") || query.includes("combination") || query.includes("counting")) {
     return "<b>Fundamental Enumeration Principles:</b><br><br>" +
-           "• <b>Permutation (Arrangement where order matters):</b><br>" +
-           "  $$P(n, r) = \\frac{n!}{(n - r)!}$$<br>" +
-           "• <b>Circular Permutation:</b> $P_{circ} = (n - 1)!$<br>" +
-           "• <b>Combination (Selection where order is disregarded):</b><br>" +
-           "  $$C(n, r) = \\frac{n!}{r!(n - r)!}$$<br>" +
-           "• <b>Combinations with Repetition:</b> $C(n + r - 1, r)$";
-  }
-
-  if (query.includes("recurrence") || query.includes("fibonacci")) {
-    return "<b>Linear Recurrence Relations:</b><br><br>" +
-           "A sequence defined recursively (such as Fibonacci $F_n = F_{n-1} + F_{n-2}$) is solved by forming its characteristic polynomial:<br>" +
-           "$$r^2 - r - 1 = 0$$<br>" +
-           "Finding roots $r_1, r_2$ yields the closed-form analytical solution.";
+           "• <b>Permutation (Order matters):</b> P(n, r) = n! / (n - r)!<br>" +
+           "• <b>Circular Permutation:</b> P_circ = (n - 1)!<br>" +
+           "• <b>Combination (Order is disregarded):</b> C(n, r) = n! / [r! · (n - r)!]";
   }
 
   // Fallback Academic Response
