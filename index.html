@@ -314,5 +314,47 @@
   </div>
 
   <script src="script.js"></script>
+
+  <!-- ================= FLOATING AI ASSISTANT ================= -->
+  <div id="aiChatWidget" class="ai-chat-widget">
+    <!-- Floating Circular Button -->
+    <button id="aiToggleBtn" class="ai-toggle-btn" onclick="toggleAIChat()" title="Ask Discrete AI">
+      🤖 <span>Ask AI</span>
+    </button>
+
+    <!-- Chat Window Container -->
+    <div id="aiChatBox" class="ai-chat-box hidden">
+      <div class="ai-chat-header">
+        <div class="ai-header-info">
+          <span class="ai-avatar">🤖</span>
+          <div>
+            <h4>Discrete AI Assistant</h4>
+            <small>● Online | Ready to help</small>
+          </div>
+        </div>
+        <button class="ai-close-btn" onclick="toggleAIChat()">&times;</button>
+      </div>
+
+      <!-- Messages Area -->
+      <div id="aiChatMessages" class="ai-chat-messages">
+        <div class="ai-msg bot">
+          Vanakkam! Naan unga Discrete LMS AI Assistant. Discrete Mathematics doubts (Logic, Sets, Combinatorics) pathiyo, illana namma website features pathiyo edhunaalum kelunga, naan explain panren!
+        </div>
+      </div>
+
+      <!-- Quick Suggestion Buttons -->
+      <div class="ai-quick-prompts">
+        <button onclick="sendQuickPrompt('Website pathi sollu')">🌐 Website Guide</button>
+        <button onclick="sendQuickPrompt('De Morgan Law explain pannu')">📖 De Morgan's Law</button>
+        <button onclick="sendQuickPrompt('Assessment pass mark enna?')">🎯 Pass Mark?</button>
+      </div>
+
+      <!-- Input Bar -->
+      <form id="aiChatForm" onsubmit="handleAIChatSubmit(event)" class="ai-chat-input-bar">
+        <input type="text" id="aiUserInput" placeholder="Type your doubt or question..." autocomplete="off" required />
+        <button type="submit" class="ai-send-btn">➤</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
